@@ -13,6 +13,10 @@ public class ClientService {
 
     private static final String DELETE_CLIENT = "DELETE FROM client WHERE id = ?";
 
+    private static final String DELETE_PROJECT = "DELETE FROM project WHERE ID = ?";
+
+    private static final String DELETE_PROJECT_WORKER = "DELETE FROM project_worker WHERE PROJECT_ID = ?";
+
     private static final String SELECT_ALL_CLIENTS = "SELECT * FROM client";
 
     private final Connection connection = Database.getInstance().getConnection();
@@ -52,6 +56,25 @@ public class ClientService {
             setNameSt.setString(1, name);
             setNameSt.setLong(2, id);
             setNameSt.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    //// видаляє строки з ідентифікатором PROJECT_ID
+    public void deleteProjectWorkerById(long projectId) {
+        try (PreparedStatement deleteByIdSt = connection.prepareStatement(DELETE_PROJECT_WORKER)) {
+            deleteByIdSt.setLong(1, projectId);
+            deleteByIdSt.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+    //// видаляє Project за ідентифікатором id
+    public void deleteProjectById(long id) {
+        try (PreparedStatement deleteByIdSt = connection.prepareStatement(DELETE_PROJECT)) {
+            deleteByIdSt.setLong(1, id);
+            deleteByIdSt.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
         }
