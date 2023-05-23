@@ -11,6 +11,12 @@ public class DatabaseInitService {
 
         ClientService clientService = new ClientService();
         System.out.println(clientService.create("New Name Client"));
-
+        System.out.println("Before update Name:  "+ clientService.getById(3));
+        clientService.setName(3, "Client New Name");
+        System.out.println("After update Name:  "+ clientService.getById(3));
+        clientService.deleteById(1);
+        System.out.println(clientService.listAll());
     }
 }
+
+

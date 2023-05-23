@@ -2,9 +2,10 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 
 public class Database {
+    private static String connectionUrl = "jdbc:h2:./module6Migration";
     private static final Database DATABASE = new Database();
     private Connection connection;
-    private static String connectionUrl = "jdbc:h2:./module6Migration";
+
 
     public static String getDatabaseUrl(){
         return connectionUrl;
