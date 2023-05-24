@@ -15,13 +15,6 @@ public class DatabaseInitService {
         clientService.setName(3, "Client New Name");
         System.out.println("After update Name:  "+ clientService.getById(3));
         clientService.deleteById(4);
-//        clientService.deleteProjectWorkerById(3);
-//        clientService.deleteProjectWorkerById(4);
-//        clientService.deleteProjectWorkerById(10);
-//        clientService.deleteProjectById(3);
-//        clientService.deleteProjectById(4);
-//        clientService.deleteProjectById(10);
-//        clientService.deleteById(4);
         System.out.println(clientService.listAll());
     }
 }

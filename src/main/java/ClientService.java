@@ -45,9 +45,9 @@ public class ClientService {
             getByIdSt.setLong(1, id);
             ResultSet resultSet = getByIdSt.executeQuery();
             while (resultSet.next()) {
-
-                deleteProjectWorkerById(resultSet.getLong("ID"));
-                deleteProjectById(resultSet.getLong("ID"));
+                long idLong = resultSet.getLong("ID");
+                deleteProjectWorkerById(idLong );
+                deleteProjectById(idLong );
             }
         } catch (SQLException e) {
             e.printStackTrace();
