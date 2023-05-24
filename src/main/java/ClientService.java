@@ -19,6 +19,8 @@ public class ClientService {
 
     private static final String SELECT_ALL_CLIENTS = "SELECT * FROM client";
 
+    private static final String PROJECT_ID_BY_CLIENT_ID = "SELECT ID FROM project WHERE CLIENT_ID = ?";
+
     private final Connection connection = Database.getInstance().getConnection();
 
 //додає нового клієнта з іменем name. Повертає ідентифікатор щойно створеного клієнта.
@@ -35,6 +37,22 @@ public class ClientService {
             e.printStackTrace();
         }
         return id;
+    }
+    ////// видаляє клієнта з ідентифікатором id
+    public void deleteById(long id) {
+
+        try (PreparedStatement getByIdSt = connection.prepareStatement(PROJECT_ID_BY_CLIENT_ID)) {
+            getByIdSt.setLong(1, id);
+            ResultSet resultSet = getByIdSt.executeQuery();
+            while (resultSet.next()) {
+
+                deleteProjectWorkerById(resultSet.getLong("ID"));
+                deleteProjectById(resultSet.getLong("ID"));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        deleteClientById(id);
     }
 //повертає назву клієнта з ідентифікатором id
     public String getById(long id) {
@@ -80,7 +98,7 @@ public class ClientService {
         }
     }
     //// видаляє клієнта з ідентифікатором id
-    public void deleteById(long id) {
+    public void deleteClientById(long id) {
         try (PreparedStatement deleteByIdSt = connection.prepareStatement(DELETE_CLIENT)) {
             deleteByIdSt.setLong(1, id);
             deleteByIdSt.executeUpdate();
